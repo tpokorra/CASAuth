@@ -93,9 +93,7 @@ function casLogin($user, &$result) {
 
         if (isset($_REQUEST["title"])) {
 
-                $lg = Language::factory($wgLanguageCode);
-
-                if ($_REQUEST["title"] == $lg->specialPage("Userlogin")) {  
+                if ($_REQUEST["title"] == SpecialPage::getTitleFor("Userlogin")->getPrefixedDBkey()) {
                         // Setup for a web request
                         require_once("$IP/includes/WebStart.php");
 
@@ -163,7 +161,7 @@ function casLogin($user, &$result) {
                           }
                         }
                 }
-                else if ($_REQUEST["title"] == $lg->specialPage("Userlogout"))
+                else if ($_REQUEST["title"] == SpecialPage::getTitleFor("Userlogout")->getPrefixedDBkey())
                   {
                     // Logout
                     casLogout();
@@ -190,7 +188,7 @@ function casLogout() {
         if ($returnto) {
                 $lg = Language::factory($wgLanguageCode);
                 $target = Title::newFromText($returnto);
-                if ($target && $target->getPrefixedDBkey() != $lg->specialPage("Userlogout")) {
+                if ($target && $target->getPrefixedDBkey() != SpecialPage::getTitleFor("Userlogout")->getPrefixedDBkey()) {
                         $redirecturl = $target->getFullUrl();
                 }
         }
