@@ -54,7 +54,7 @@ $CASAuth = array(
 );
 
 # load our custom configuration
-require_once("$IP/extensions/CASAuth/CASAuthSettings.php");
+require_once(__DIR__ . "/CASAuthSettings.php");
 
 //--------------------------------------------------------------------------
 // CASAuth
