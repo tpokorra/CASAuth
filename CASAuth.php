@@ -161,11 +161,6 @@ function casLogin($user) {
                           }
                         }
                 }
-                else if ($_REQUEST["title"] == SpecialPage::getTitleFor("Userlogout")->getPrefixedDBkey())
-                  {
-                    // Logout
-                    casLogout();
-                  }
         }
 
         // Back to MediaWiki home after login
@@ -176,12 +171,9 @@ function casLogin($user) {
 function casLogout() {
         global $CASAuth;
         global $casIsSetUp;
-        global $wgUser, $wgRequest;
+        global $wgRequest;
 
         require_once($CASAuth["phpCAS"]."/CAS.php");
-
-        // Logout from MediaWiki
-        $wgUser->logout();
 
         // Get returnto value
         $returnto = $wgRequest->getVal("returnto");
