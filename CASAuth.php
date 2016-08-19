@@ -186,7 +186,6 @@ function casLogout() {
         // Get returnto value
         $returnto = $wgRequest->getVal("returnto");
         if ($returnto) {
-                $lg = Language::factory($wgLanguageCode);
                 $target = Title::newFromText($returnto);
                 if ($target && $target->getPrefixedDBkey() != SpecialPage::getTitleFor("Userlogout")->getPrefixedDBkey()) {
                         $redirecturl = $target->getFullUrl();
