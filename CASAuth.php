@@ -89,7 +89,7 @@ function casLogoutCheck() {
 function casLogin($user, &$result) {
         global $CASAuth;
         global $casIsSetUp;
-        global $IP, $wgLanguageCode, $wgRequest, $wgOut;
+        global $IP, $wgRequest, $wgOut;
 
         if (isset($_REQUEST["title"])) {
 
@@ -176,7 +176,7 @@ function casLogin($user, &$result) {
 function casLogout() {
         global $CASAuth;
         global $casIsSetUp;
-        global $wgUser, $wgRequest, $wgLanguageCode;
+        global $wgUser, $wgRequest;
 
         require_once($CASAuth["phpCAS"]."/CAS.php");
 
