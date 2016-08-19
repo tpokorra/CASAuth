@@ -62,7 +62,7 @@ require_once(__DIR__ . "/CASAuthSettings.php");
 
 // Setup hooks
 global $wgHooks;
-$wgHooks["UserLoadFromSession"][] = "casLogin";
+$wgHooks["UserLoadAfterLoadFromSession"][] = "casLogin";
 $wgHooks["UserLogoutComplete"][] = "casLogout";
 $wgHooks["GetPreferences"][] = "casPrefs";
 
@@ -86,7 +86,7 @@ function casLogoutCheck() {
 }
 
 // Login
-function casLogin($user, &$result) {
+function casLogin($user) {
         global $CASAuth;
         global $casIsSetUp;
         global $IP, $wgRequest, $wgOut;
