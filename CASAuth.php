@@ -42,7 +42,7 @@ $CASAuth = array(
         "LogoutServers"  => false,
         "Port"           => 443,
         "Url"            => "/cas/",
-        "Version"        => "2.0.3-ucb",
+        "Version"        => "2.0",
         "CreateAccounts" => false,     
         "PwdSecret"      => "Secret",
 
