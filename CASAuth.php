@@ -3,9 +3,8 @@
  * CASification script for MediaWiki 1.16 with phpCAS 1.2.1
  *
  * Requires phpCAS: http://www.ja-sig.org/wiki/display/CASC/phpCAS
- * Install by adding these lines to LocalSetting.php:
+ * Install by adding this line to LocalSetting.php:
  *  require_once("$IP/extensions/CASAuth/CASAuth.php");
- *  casSetup();
  *
  * *** Please keep all configuration in the CASAuth.conf file ***
  *
@@ -89,18 +88,14 @@ function casLogoutCheck() {
 function casLogin($user) {
         global $CASAuth;
         global $casIsSetUp;
-        global $IP, $wgRequest, $wgOut;
+        global $wgRequest, $wgOut;
 
         if (isset($_REQUEST["title"])) {
 
                 if ($_REQUEST["title"] == SpecialPage::getTitleFor("Userlogin")->getPrefixedDBkey()) {
-                        // Setup for a web request
-                        require_once("$IP/includes/WebStart.php");
-
                         // Load phpCAS
-                        require_once($CASAuth["phpCAS"]."/CAS.php");
                         if(!$casIsSetUp)
-                                return false;
+                                casSetup();
 
                         //Will redirect to CAS server if not logged in
                         phpCAS::forceAuthentication();
@@ -173,8 +168,6 @@ function casLogout() {
         global $casIsSetUp;
         global $wgRequest;
 
-        require_once($CASAuth["phpCAS"]."/CAS.php");
-
         // Get returnto value
         $returnto = $wgRequest->getVal("returnto");
         if ($returnto) {
@@ -185,7 +178,7 @@ function casLogout() {
         }
 
         if(!$casIsSetUp)
-                return false;
+                casSetup();
 
         // Logout from CAS (will redirect user to CAS server)
 
@@ -242,9 +235,6 @@ function casPostAuth($ticket2logout) {
 // The CAS server sent a single sign-out command... let's process it
 function casSingleSignOut($ticket2logout) {
         global $CASAuth;
-        global $IP;
-
-        require_once($CASAuth["phpCAS"]."/CAS.php");
 
         $session_id = preg_replace('/[^a-zA-Z0-9\-]/','',$ticket2logout);
 

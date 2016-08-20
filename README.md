@@ -34,11 +34,10 @@ Assume $WIKI is the directory for your wiki.
 3.  Download the [phpCAS](https://wiki.jasig.org/display/CASC/phpCAS) extension
     and extract it to the folder $WIKI/extensions/CASAuth/CAS/
 
-4.  Add the following lines to your LocalSettings.php
+4.  Add the following line to your LocalSettings.php
 
     ```php
     require_once( "$IP/extensions/CASAuth/CASAuth.php" );
-    casSetup();
     ```
 
 5.  In the $WIKI/extensions/CASAuth/ directory, copy the
