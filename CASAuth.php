@@ -106,7 +106,6 @@ function casLogin($user) {
 
                         // Get username
                         $username = casNameLookup(phpCAS::getUser());
-                        $email    = casEmailLookup(phpCAS::getUser());
 
                         // If we are restricting users AND the user is not in
                         // the allowed users list, lets block the login
@@ -123,9 +122,12 @@ function casLogin($user) {
 
                         // Create a new account if the user does not exists
                         if ($u->getID() == 0 && $CASAuth["CreateAccounts"]) {
+                          //Get email and realname
+                          $realname = casRealNameLookup(phpCAS::getUser());
+                          $email    = casEmailLookup(phpCAS::getUser());
                           // Create the user
                           $u->addToDatabase();
-                          $u->setRealName($username);
+                          $u->setRealName($realname);
                           $u->setEmail($email);
                           // PwdSecret is used to salt the username, which is
                           // then used to create an md5 hash which becomes the
