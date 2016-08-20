@@ -1,8 +1,8 @@
 CASAuth(entication) Extension for Mediawiki
 ===========================================
 
-A CAS Authentication extension for Mediawiki. Tested with versions with
-1.19, although it should work for at least versions 1.16+, if not earlier.
+A CAS Authentication extension for Mediawiki 1.27, 1.23 (and possibly
+earlier).
 
 Introduction
 ------------
@@ -14,12 +14,10 @@ installation.  This particular code is derived from work found
 This code is customized towards usage for private wikis, with the ability to
 restrict access to the wiki to specific usernames.
 
-This extension is currently written for, and tested against Mediawiki 1.19. 
-However, if you find it works well against a different version of Mediawiki,
-please feel free to let me know and I will keep track of it in this README.
-
-The extension will follow whatever version of Mediawiki is found in the
-[EPEL](http://fedoraproject.org/wiki/EPEL EPEL) repository.
+This extension is currently written for and tested against Mediawiki 1.27 and
+1.23 with phpCAS 1.3.3. However, if you find it works well against a different
+version of Mediawiki and/or phpCAS, please feel free to let me know and I will
+keep track of it in this README.
 
 Installation
 ------------

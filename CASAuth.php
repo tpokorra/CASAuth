@@ -1,12 +1,12 @@
 <?php
 /*
- * CASification script for MediaWiki 1.16 with phpCAS 1.2.1
+ * CASification script for MediaWiki 1.27 with phpCAS 1.3.3
  *
- * Requires phpCAS: http://www.ja-sig.org/wiki/display/CASC/phpCAS
+ * Requires phpCAS: https://wiki.jasig.org/display/CASC/phpCAS
  * Install by adding this line to LocalSetting.php:
  *  require_once("$IP/extensions/CASAuth/CASAuth.php");
  *
- * *** Please keep all configuration in the CASAuth.conf file ***
+ * *** Please keep all configuration in the CASAuthSettings.php file ***
  *
  * Revision History
  *   Original Revision: Ioannis Yessios
@@ -17,18 +17,21 @@
  *                      chris [dot] n [at] free [dot] fr
  *   Which was based on the original script using CAS Utils by Victor Chen
  *                      Yvchen [at] sfu [dot] ca
- *   Cleaned up and bugfixed: Stefan Sundin recover89 [at] gmail [dot] com
+ *   Cleaned up and bugfixed: Stefan Sundin
+ *                      recover89 [at] gmail [dot] com
  *   User filtering code, seperation of config and code cleanup: Aaron Russo
  *                      arusso [at] berkeley [dot] edu
  *   Email lookup hook added: Amir Tahvildaran
  *                      amirdt22 [at] gmail [dot] com
+ *   MW 1.27 compatibility: Jeffrey Gill
+ *                      jeffrey [dot] p [dot] gill [at] gmail [dot] com
  */
 
 $wgExtensionCredits["other"][] = array(
         "name"        => "CASAuth",
         "version"     => "2.0.3-ucb",
-        "author"      => "Ioannis Yessios, Hauke Pribnow, Aaron Russo",
-        "url"         => "https://github.com/arusso23/CASAuth",
+        "author"      => "Ioannis Yessios, Hauke Pribnow, Aaron Russo, Jeffrey Gill",
+        "url"         => "https://github.com/CWRUChielLab/CASAuth",
         "description" => "Overrides MediaWiki's Authentication and implements Central Authentication Service (CAS) Authentication.  Original url: http://www.mediawiki.org/wiki/Extension:CASAuthentication"
 );
 
