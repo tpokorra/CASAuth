@@ -150,7 +150,7 @@ function casLogin($user, &$result) {
                         if ($CASAuth["RememberMe"]) {
                           $u->setOption("rememberpassword", 1);
                         }
-                        $u->setCookies();
+                        $u->setCookies(null, null, $CASAuth["RememberMe"]);
                         $user = $u;
 
                         // Redirect if a returnto parameter exists
