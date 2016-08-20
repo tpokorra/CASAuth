@@ -275,6 +275,9 @@ function casSetup() {
         global $CASAuth;
         global $casIsSetUp;
 
+        // Make the session persistent so that phpCAS doesn't change the session id
+        wfSetupSession();
+
         require_once($CASAuth["phpCAS"]."/CAS.php");
         phpCAS::client($CASAuth["Version"], $CASAuth["Server"], $CASAuth["Port"], $CASAuth["Url"], false);
         phpCAS::setSingleSignoutCallback('casSingleSignOut');
