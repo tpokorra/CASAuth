@@ -95,14 +95,6 @@ function casNameLookup($username) {
   return $username;
 }
 
-# If you dont like the uid that CAS returns (ie. it returns a number) you can
-# modify the routine below to return a customized real name instead.
-#
-# Default: Returns the username, untouched
-function casRealNameLookup($username) {
-  return $username;
-}
-
 # If your users aren't all on the same email domain you can
 # modify the routine below to return their email address
 #
@@ -112,3 +104,44 @@ function casEmailLookup($username) {
   return $username."@".$CASAuth["EmailDomain"];
 }
 
+# If you dont like the uid that CAS returns (ie. it returns a number) you can
+# modify the routine below to return a customized real name instead.
+#
+# Default: Returns the username, untouched
+function casRealNameLookup($username) {
+  return $username;
+}
+
+/*
+# If you would like to use ldap to retrieve real names, you can use these
+# functions instead. Remember to fill in appropriate parameters for ldap.
+function casRealNameLookup($username) {
+  return @casRealNameLookupFromLDAP($username);
+}
+
+function casRealNameLookupFromLDAP($username) {
+  try {
+    # login to the LDAP server
+    $ldap = ldap_connect("host");
+    $bind = ldap_bind($ldap, "bind_rdn", "bind_password");
+
+    # look up the user's name by user id
+    $result = ldap_search($ldap, "base_dn", "(uid=$username)");
+    $info = ldap_get_entries($ldap, $result);
+
+    $first_name = $info[0]["givenname"][0];
+    $last_name  = $info[0]["sn"][0];
+
+    # log out of the server
+    ldap_unbind($ldap);
+
+    $realname = $first_name . " " . $last_name;
+  } catch (Exception $e) {}
+
+  if ($realname == " " || $realname == "" || $realname == NULL) {
+    $realname = $username;
+  }
+
+  return $realname;
+}
+*/
