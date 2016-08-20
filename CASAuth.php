@@ -29,7 +29,7 @@
 
 $wgExtensionCredits["other"][] = array(
         "name"        => "CASAuth",
-        "version"     => "2.0.3-ucb",
+        "version"     => "2.0.4",
         "author"      => "Ioannis Yessios, Hauke Pribnow, Aaron Russo, Jeffrey Gill",
         "url"         => "https://github.com/CWRUChielLab/CASAuth",
         "description" => "Overrides MediaWiki's Authentication and implements Central Authentication Service (CAS) Authentication.  Original url: http://www.mediawiki.org/wiki/Extension:CASAuthentication"
