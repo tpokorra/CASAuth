@@ -25,6 +25,8 @@
  *                      amirdt22 [at] gmail [dot] com
  *   MW 1.27 compatibility: Jeffrey Gill
  *                      jeffrey [dot] p [dot] gill [at] gmail [dot] com
+ *   Security patch (user name trimming): Andrew Engelbrecht (contribution under GPLv2-or-later)
+ *                      andrew [at] engelbrecht [dot] io
  */
 
 $wgExtensionCredits["other"][] = array(
@@ -106,6 +108,13 @@ function casLogin($user) {
 
                         // Get username
                         $username = casNameLookup(phpCAS::getUser());
+
+                        // casNameLookup() says name is invalid
+                        if (is_null($username)) {
+                          // redirect user to the RestrictRedirect page
+                          $wgOut->redirect($CASAuth["RestrictRedirect"]);
+                          return true;
+                        }
 
                         // If we are restricting users AND the user is not in
                         // the allowed users list, lets block the login

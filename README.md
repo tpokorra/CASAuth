@@ -19,6 +19,14 @@ This extension is currently written for and tested against Mediawiki 1.27 and
 version of Mediawiki and/or phpCAS, please feel free to let me know and I will
 keep track of it in this README.
 
+Security Update
+---------------
+
+To prevent users from logging in as bureaucrats, via specially crafted user
+names, be sure to use the latest version of this module, and apply the
+suggested change to the `casNameLookup` hook in `CASAuthSettings.php`, as shown
+in `CASAuthSettings.php.template`.
+
 Installation
 ------------
 

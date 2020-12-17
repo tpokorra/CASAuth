@@ -90,8 +90,47 @@ $CASAuth["RestrictRedirect"]="http://www.example.com";
 # If you dont like the uid that CAS returns (ie. it returns a number) you can
 # modify the routine below to return a customized username instead.
 #
-# Default: Returns the username, untouched
+# Default: Returns the username, untouched, unless there are characters that
+# might be stripped by MediaWiki.
 function casNameLookup($username) {
+
+  # Some special characters are automatically trimmed from user names when
+  # logging into MediaWiki. For instance if a user authenticates with the CAS
+  # account name "__admin_ user ", they would normally be logged into MediaWiki
+  # as "Admin user". "admin_" also maps to "Admin". If users are allowed to
+  # choose such names in your CAS account signup system, they may be able to
+  # log in as one of your wiki's bureaucrat users, allowing them to deface your
+  # wiki. The following patch should help by blocking certain combinations of
+  # underscores and spaces in user names.
+  #
+  # You may find that your CAS server allows user names to contain other
+  # special characters that are stripped out by MediaWiki, so you may wish to
+  # experiment with your login system, and potentially add more regexes to the
+  # `$collisions` array below. Please submit an issue upstream on the plugin
+  # project page if you find any more characters that meet this criteria.
+  #
+  # If you are adding this code to your previously existing CASAuth
+  # installation for the first time, please also make sure that you are using
+  # the latest patched version of CASAuth.
+  #
+  # <https://www.mediawiki.org/wiki/Extension:CASAuthentication>
+
+  # Normally, both "admin_user" (with a single underscore) and "admin user"
+  # (with a single space) both log in as "Admin user". This Boolean value
+  # allows isolated underscores rather than spaces:
+  $preferUnderscore = true;
+
+  $collisions = [ "/^_/", "/_$/", "/^ /", "/ $/", "/  /", "/__/", "/_ /", "/ _/" ];
+  $collisions[] = $preferUnderscore ? "/ /" : "/_/";
+
+  foreach ($collisions as $collision) {
+    if(preg_match($collision, $username)) {
+      # reject user name
+      return null;
+    }
+  }
+
+  # user name checks out
   return $username;
 }
 
