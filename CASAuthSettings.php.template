@@ -134,6 +134,10 @@ function casNameLookup($username) {
     }
   }
 
+  # test for invalid Unicode characters. ('/u' strips them out in PHP 5.2.x).
+  $cleaned = preg_replace( '/_/u', '_', $username );
+  if ($cleaned !== $username) { return null; }
+
   # user name checks out
   return $username;
 }
