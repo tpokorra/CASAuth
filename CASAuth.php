@@ -129,6 +129,13 @@ function casLogin($user) {
                         // Get MediaWiki user
                         $u = User::newFromName($username);    
 
+                        // MediaWiki says name is invalid
+                        if ($u === false) {
+                          // redirect user to the RestrictRedirect page
+                          $wgOut->redirect($CASAuth["RestrictRedirect"]);
+                          return true;
+			}
+
                         // Create a new account if the user does not exists
                         if ($u->getID() == 0 && $CASAuth["CreateAccounts"]) {
                           //Get email and realname
