@@ -100,14 +100,18 @@ function casNameLookup($username) {
   # as "Admin user". "admin_" also maps to "Admin". If users are allowed to
   # choose such names in your CAS account signup system, they may be able to
   # log in as one of your wiki's bureaucrat users, allowing them to deface your
-  # wiki. The following patch should help by blocking certain combinations of
-  # underscores and spaces in user names.
+  # wiki. The following code blocks certain combinations of underscores,
+  # spaces, and other characters normally converted or trimmed from user names.
   #
   # You may find that your CAS server allows user names to contain other
   # special characters that are stripped out by MediaWiki, so you may wish to
   # experiment with your login system, and potentially add more regexes to the
   # `$collisions` array below. Please submit an issue upstream on the plugin
   # project page if you find any more characters that meet this criteria.
+  #
+  # A good place to look is `splitTitleString` in MediaWiki's
+  # `includes/title/MediaWikiTitleCodec.php`. The folllowing code covers the
+  # most obvious combinations from there.
   #
   # If you are adding this code to your previously existing CASAuth
   # installation for the first time, please also make sure that you are using
@@ -120,7 +124,7 @@ function casNameLookup($username) {
   # allows isolated underscores rather than spaces:
   $preferUnderscore = true;
 
-  $collisions = [ "/^_/", "/_$/", "/^ /", "/ $/", "/  /", "/__/", "/_ /", "/ _/" ];
+  $collisions = [ "/^_/", "/_$/", "/^ /", "/ $/", "/  /", "/__/", "/_ /", "/ _/", '/[\xA0\x{1680}\x{180E}\x{2000}-\x{200A}\x{2028}\x{2029}\x{202F}\x{205F}\x{3000}]+/u', '/\xE2\x80[\x8E\x8F\xAA-\xAE]/' ];
   $collisions[] = $preferUnderscore ? "/ /" : "/_/";
 
   foreach ($collisions as $collision) {
