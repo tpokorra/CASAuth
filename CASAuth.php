@@ -226,7 +226,9 @@ function casPostAuth($ticket2logout) {
 
         // remember the current session name and id
         $session = MediaWiki\Session\SessionManager::getGlobalSession();
-        $old_session_name=$session->getName();
+        $session->clear();
+        return;
+        // $old_session_name=$session->getName();
         $old_session_id=$session->getId();
 
         // close the current session for now
