@@ -148,10 +148,13 @@ function casLogin($user) {
                           // PwdSecret is used to salt the username, which is
                           // then used to create an md5 hash which becomes the
                           // password
-                          $u->setPassword(
-                                          md5($username.$CASAuth["PwdSecret"])
-                                          );
- 
+                          $hashed_secret = md5($username.$CASAuth["PwdSecret"]);
+                          $u->changeAuthenticationData( [
+                            'username' => $u->getName(),
+                            'password' => $hashed_secret,
+                            'retype' => $hashed_secret,
+                            ] );
+
                           $u->setToken();
                           $u->saveSettings();
  
